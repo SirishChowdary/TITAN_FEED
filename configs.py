@@ -24,7 +24,7 @@ class Config(object):
 
     SUPPORT_GROUP = str(os.environ.get("SUPPORT_GROUP", "https://t.me/Titan_Cinemas"))
 
-    DB_URL = str(os.environ.get("DB_URL", ""))
+    DB_URL = str(os.environ.get("DB_URL", "mongodb+srv://penihad632:srikar@cluster0.ru7trsg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"))
     
     DB_NAME = str(os.environ.get("DB_NAME", "Cluster0"))
     
