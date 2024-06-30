@@ -94,7 +94,6 @@ async def start(bot, message):
 @bot.on_message(filters.command('help') & (filters.group | filters.private))
 async def help(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
     if not await db.is_user_exist(chat_id):
         data = await bot.get_me()
         BOT_USERNAME = data.username
@@ -103,26 +102,25 @@ async def help(bot, message):
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
         )
-    ban_status = await db.get_ban_status(chat_id)
-    is_banned = ban_status['is_banned']
-    ban_duration = ban_status['ban_duration']
-    ban_reason = ban_status['ban_reason']
-    if is_banned is True:
+   
+    ban_status = await db.get_ban_status(chat_id)    
+    is_banned = ban_status.get('is_banned', False)
+    if is_banned:
+        ban_duration = ban_status.get('ban_duration', 'unknown')
+        ban_reason = ban_status.get('ban_reason', 'No reason provided')
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
       
     await message.reply_text(
         text=C.HELP,
         reply_markup=InlineKeyboardMarkup([
-            [ InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
+            [InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
         ])
     )
-
 
 @bot.on_message(filters.command('donate') & (filters.group | filters.private))
 async def donate(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
     if not await db.is_user_exist(chat_id):
         data = await bot.get_me()
         BOT_USERNAME = data.username
@@ -131,23 +129,22 @@ async def donate(bot, message):
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
         )
-        
+    
     ban_status = await db.get_ban_status(chat_id)
-    is_banned = ban_status['is_banned']
-    ban_duration = ban_status['ban_duration']
-    ban_reason = ban_status['ban_reason']
-    if is_banned is True:
+    
+    is_banned = ban_status.get('is_banned', False)
+    if is_banned:
+        ban_duration = ban_status.get('ban_duration', 'unknown')
+        ban_reason = ban_status.get('ban_reason', 'No reason provided')
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
-        
+      
     await message.reply_text(
         text=C.DONATE + "If You Liked This Bot You Can Also Donate Creator through BTC `3AKE4bNwb9TsgaofLQxHAGCR9w2ftwFs2R`",
         reply_markup=InlineKeyboardMarkup([
-            [ InlineKeyboardButton(text="DONATE", url=f"{donate_link}")]
+            [InlineKeyboardButton(text="DONATE", url=donate_link)]
         ])
     )
-
-
 
 @bot.on_message(filters.command("settings") & filters.private)
 async def opensettings(bot, cmd):
