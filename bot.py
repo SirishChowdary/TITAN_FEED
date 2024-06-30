@@ -363,19 +363,20 @@ async def pm_media_group(bot, message):
     await bot.copy_media_group(chat_id=owner_id, from_chat_id=reference_id, message_id=message.message_id)
 
 @bot.on_message((filters.group | filters.private) & filters.media)
-async def pm_media(bot, message):
-    chat_id = message.from_user.id
+async def pm_media(_, message):
     try:
-        if not await db.is_user_exist(chat_id):
+        chat_id = message.from_user.id
+        
+        if not await db_is_user_exist(chat_id):
             data = await bot.get_me()
             BOT_USERNAME = data.username
-            await db.add_user(chat_id)
+            await db_add_user(chat_id)
             await bot.send_message(
                 LOG_CHANNEL,
                 f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
             )
         
-        ban_status = await db.get_ban_status(chat_id)
+        ban_status = await db_get_ban_status(chat_id)
         
         is_banned = ban_status.get('is_banned', False)
         if is_banned:
@@ -402,12 +403,13 @@ async def pm_media(bot, message):
             await bot.copy_message(
                 chat_id=owner_id,
                 from_chat_id=message.chat.id,
-                message_id=message.message.id,
+                message_id=message.message_id,  # Corrected attribute access: message_id
                 caption=IF_CONTENT.format(reference_id, info.first_name),
             )
     
     except Exception as e:
         print(f"Error in pm_media command: {e}")
+
 
 @bot.on_message(filters.user(owner_id) & filters.text)
 async def reply_text(bot, message):
