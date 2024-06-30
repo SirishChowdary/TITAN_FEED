@@ -1,40 +1,10 @@
-# Copyright (c) 2021 HEIMAN PICTURES
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 import os
 import traceback
 import logging
 from pyrogram import Client, filters
-
 from configs import Config as C
 
-# LMAO, This Is Logging 
-# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# logger = logging.getLogger(__name__)
-# logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
-# Import From Framework
-# from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-
 from pyrogram.types import *
-
 from database.broadcast import broadcast
 from database.verifier import handle_user_status
 from database.database import Database
@@ -46,23 +16,17 @@ DB_NAME = C.DB_NAME
 
 db = Database(DB_URL, DB_NAME)
 
-# Don't Change Anything, Except If You Want To Add Value
 bot = Client('Feedback bot',
              api_id=C.API_ID,
              api_hash=C.API_HASH,
              bot_token=C.BOT_TOKEN)
 
 donate_link=C.DONATE_LINK
-
 owner_id=C.OWNER_ID
-
 LOG_TEXT = "ID: <code>{}</code>\nFirst Name: <a href='tg://user?id={}'>{}{}</a>\nDC ID: <code>{}</code>"
-
 IF_TEXT = "<b>Message from:</b> {}\n<b>Name:</b> {}\n\n{}"
-
 IF_CONTENT = "<b>Message from:</b> {} \n<b>Name:</b> {}"
 
-# Callback
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
     user_id = cb.from_user.id
@@ -102,7 +66,6 @@ async def _(bot, cmd):
 @bot.on_message(filters.command('start') & (filters.private | filters.group))
 async def start(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
     if not await db.is_user_exist(chat_id):
         data = await bot.get_me()
         BOT_USERNAME = data.username
@@ -112,22 +75,22 @@ async def start(bot, message):
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
         )
         return
-      
-    # 
-    ban_status = await db.get_ban_status(chat_id)
-    is_banned = ban_status['is_banned']
-    ban_duration = ban_status['ban_duration']
-    ban_reason = ban_status['ban_reason']
-    if is_banned is True:
+    
+    ban_status = await db.get_ban_status(chat_id)   
+    is_banned = ban_status.get('is_banned', False)
+    if is_banned:
+        ban_duration = ban_status.get('ban_duration', 'unknown')
+        ban_reason = ban_status.get('ban_reason', 'No reason provided')
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
+    
     await message.reply_text(
         text="**Hi {}!**\n".format(message.chat.first_name)+C.START,
         reply_markup=InlineKeyboardMarkup([
-            [ InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
+            [InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
         ])
     )
-
+  
 @bot.on_message(filters.command('help') & (filters.group | filters.private))
 async def help(bot, message):
     chat_id = message.from_user.id
