@@ -3,7 +3,6 @@ import traceback
 import logging
 from pyrogram import Client, filters
 from configs import Config as C
-from config import *
 
 from pyrogram.types import *
 from database.broadcast import broadcast
@@ -27,6 +26,12 @@ owner_id=C.OWNER_ID
 LOG_TEXT = "ID: <code>{}</code>\nFirst Name: <a href='tg://user?id={}'>{}{}</a>\nDC ID: <code>{}</code>"
 IF_TEXT = "<b>Message from:</b> {}\n<b>Name:</b> {}\n\n{}"
 IF_CONTENT = "<b>Message from:</b> {} \n<b>Name:</b> {}"
+
+
+START_TXT = """
+ʜᴇʏ {first} 💞
+
+ᴡᴇ ʀᴇᴀʟʟʏ ʜᴏᴘᴇ ʏᴏᴜ ʜᴀᴠᴇ ᴀ ɢᴏᴏᴅ ᴅᴀʏ ɪғ ʏᴏᴜ ʜᴀᴠᴇ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ ? ᴊᴜsᴛ ᴅʀᴏᴘ ᴛʜᴇᴍ ʜᴇʀᴇ ᴡᴇ ᴡɪʟʟ sᴜʀᴇʟʏ ᴛʀʏ ᴛᴏ ᴀɴsᴡᴇʀ ᴀs sᴏᴏɴ ᴀs ᴘᴏssɪʙʟᴇ ᴛʜᴀɴᴋs ғᴏʀ sᴛᴀʀᴛɪɴɢ"""
 
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
@@ -85,11 +90,16 @@ async def start(bot, message):
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
     
-    await message.reply_photo(
-        photo=random.choice(PICS),
-        caption="**Hi {}!**\n".format(message.chat.first_name)+C.START,
+    await message.reply_text(
+        text=START_TXT.format(first=message.from_user.first_name),
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
+            [
+              InlineKeyboardButton("💫 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ", url=""),
+              InlineKeyboardButton("💞 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ", url="")
+            ],
+            [ 
+              InlineKeyboardButton("🚀 ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ 🚀", url="")
+            ]
         ])
     )
   
