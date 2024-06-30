@@ -472,12 +472,11 @@ async def replay_media(bot, message):
             reference_id = file.caption.split()[2]
         except Exception:
             pass
-        # check if media is group of media
         if message.media_group_id is not None:
             await bot.copy_message(
                 chat_id=int(reference_id),
                 from_chat_id=message.chat.id,
-                message_id=message.message_id,
+                message_id=message.id,
                 caption=message.caption,
     
             )
@@ -485,8 +484,7 @@ async def replay_media(bot, message):
             await bot.copy_message(
                 chat_id=int(reference_id),
                 from_chat_id=message.chat.id,
-                message_id=message.message_id,
-    
+                message_id=message.id,
             )
 
 if __name__ == "__main__":
