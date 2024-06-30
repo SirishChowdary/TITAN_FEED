@@ -277,32 +277,34 @@ async def _banned_usrs(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
         return
+    
     all_banned_users = await db.get_all_banned_users()
     banned_usr_count = 0
     text = ""
+    
     async for banned_user in all_banned_users:
         user_id = banned_user["id"]
-        ban_duration = banned_user["ban_status"]["ban_duration"]
-        banned_on = banned_user["ban_status"]["banned_on"]
-        ban_reason = banned_user["ban_status"]["ban_reason"]
+        ban_status = banned_user.get("ban_status", {})
+        ban_duration = ban_status.get("ban_duration", "Unknown")
+        banned_on = ban_status.get("banned_on", "Unknown")
+        ban_reason = ban_status.get("ban_reason", "No reason provided")
+        
         banned_usr_count += 1
         text += f"> **User_id**: `{user_id}`, **Ban Duration**: `{ban_duration}`, **Banned on**: `{banned_on}`, **Reason**: `{ban_reason}`\n\n"
-    reply_text = f"Total banned user(s) 🤭: `{banned_usr_count}`\n\n{text}"
+    
+    reply_text = f"Total banned user(s) 🤭: `{banned_usr_count}`\n\n{text}"    
     if len(reply_text) > 4096:
         with open("banned-users.txt", "w") as f:
             f.write(reply_text)
         await m.reply_document("banned-users.txt", True)
         os.remove("banned-users.txt")
         return
+      
     await m.reply_text(reply_text, True)
-
-    return
-
 
 @bot.on_message((filters.group | filters.private) & filters.text)
 async def pm_text(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
     if not await db.is_user_exist(chat_id):
         data = await bot.get_me()
         BOT_USERNAME = data.username
@@ -311,17 +313,20 @@ async def pm_text(bot, message):
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
         )
+    
     ban_status = await db.get_ban_status(chat_id)
-    is_banned = ban_status['is_banned']
-    ban_duration = ban_status['ban_duration']
-    ban_reason = ban_status['ban_reason']
-    if is_banned is True:
+    
+    is_banned = ban_status.get('is_banned', False)
+    if is_banned:
+        ban_duration = ban_status.get('ban_duration', 'unknown')
+        ban_reason = ban_status.get('ban_reason', 'No reason provided')
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
       
     if message.from_user.id == owner_id:
         await reply_text(bot, message)
         return
+    
     info = await bot.get_users(user_ids=message.from_user.id)
     reference_id = int(message.chat.id)
     await bot.send_message(
@@ -332,7 +337,6 @@ async def pm_text(bot, message):
 @bot.on_message((filters.group | filters.private) & filters.media_group)
 async def pm_media_group(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
     if not await db.is_user_exist(chat_id):
         data = await bot.get_me()
         BOT_USERNAME = data.username
@@ -341,94 +345,105 @@ async def pm_media_group(bot, message):
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
         )
+    
     ban_status = await db.get_ban_status(chat_id)
-    is_banned = ban_status['is_banned']
-    ban_duration = ban_status['ban_duration']
-    ban_reason = ban_status['ban_reason']
-    if is_banned is True:
+    
+    is_banned = ban_status.get('is_banned', False)
+    if is_banned:
+        ban_duration = ban_status.get('ban_duration', 'unknown')
+        ban_reason = ban_status.get('ban_reason', 'No reason provided')
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
       
     if message.from_user.id == owner_id:
         await replay_media(bot, message)
         return
+    
     reference_id = int(message.chat.id)
     await bot.copy_media_group(chat_id=owner_id, from_chat_id=reference_id, message_id=message.message_id)
-    
 
 @bot.on_message((filters.group | filters.private) & filters.media)
 async def pm_media(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
-    if not await db.is_user_exist(chat_id):
-        data = await bot.get_me()
-        BOT_USERNAME = data.username
-        await db.add_user(chat_id)
-        await bot.send_message(
-            LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-        )
-    ban_status = await db.get_ban_status(chat_id)
-    is_banned = ban_status['is_banned']
-    ban_duration = ban_status['ban_duration']
-    ban_reason = ban_status['ban_reason']
-    if is_banned is True:
-        await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
-        return
-      
-    if message.from_user.id == owner_id:
-        await replay_media(bot, message)
-        return
-    info = await bot.get_users(user_ids=message.from_user.id)
-    reference_id = int(message.chat.id)
-    if message.media_group_id is not None:
-        # media = []
-        # async for m in bot.iter_history(message.chat.id, message.media_group_id):
-        #     print(m)
-        #     media.append(message.photo)
-        # bot.send_media_group(chat_id=owner_id, media=media)
-        return
-    else:
-        await bot.copy_message(
-            chat_id=owner_id,
-            from_chat_id=message.chat.id,
-            message_id=message.message_id,
-            caption=IF_CONTENT.format(reference_id, info.first_name),
+    try:
+        if not await db.is_user_exist(chat_id):
+            data = await bot.get_me()
+            BOT_USERNAME = data.username
+            await db.add_user(chat_id)
+            await bot.send_message(
+                LOG_CHANNEL,
+                f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+            )
+        
+        ban_status = await db.get_ban_status(chat_id)
+        
+        is_banned = ban_status.get('is_banned', False)
+        if is_banned:
+            ban_duration = ban_status.get('ban_duration', 'unknown')
+            ban_reason = ban_status.get('ban_reason', 'No reason provided')
+            await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
+            return
+          
+        if message.from_user.id == owner_id:
+            await replay_media(bot, message)
+            return
+        
+        info = await bot.get_users(user_ids=message.from_user.id)
+        reference_id = int(message.chat.id)
+        
+        if message.media_group_id is not None:
+            print(f"Handling media group with ID: {message.media_group_id}")
+            return
+        else:
+            await bot.copy_message(
+                chat_id=owner_id,
+                from_chat_id=message.chat.id,
+                message_id=message.message_id,
+                caption=IF_CONTENT.format(reference_id, info.first_name),
+            )
+    except Exception as e:
+        print(f"Error in pm_media command: {e}")
 
-        )
 
 
 @bot.on_message(filters.user(owner_id) & filters.text)
 async def reply_text(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
-    if not await db.is_user_exist(chat_id):
-        data = await bot.get_me()
-        BOT_USERNAME = data.username
-        await db.add_user(chat_id)
-        await bot.send_message(
-            LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-        )
+    try:
+        if not await db.is_user_exist(chat_id):
+            data = await bot.get_me()
+            BOT_USERNAME = data.username
+            await db.add_user(chat_id)
+            await bot.send_message(
+                LOG_CHANNEL,
+                f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+            )
+        
+        reference_id = None
+        if message.reply_to_message:
+            file = message.reply_to_message
+            try:
+                reference_id = file.text.split()[2]
+            except Exception:
+                pass
+            try:
+                reference_id = file.caption.split()[2]
+            except Exception:
+                pass
+        
+        if reference_id:
+            await bot.send_message(
+                chat_id=int(reference_id),
+                text=message.text
+            )
+        else:
+            await bot.send_message(
+                chat_id=message.chat.id,
+                text="No valid reference ID found."
+            )
     
-    reference_id = True
-    if message.reply_to_message is not None:
-        file = message.reply_to_message
-        try:
-            reference_id = file.text.split()[2]
-        except Exception:
-            pass
-        try:
-            reference_id = file.caption.split()[2]
-        except Exception:
-            pass
-        await bot.send_message(
-            chat_id=int(reference_id),
-            #from_chat_id=message.chat.id,
-            #message_id=message.message_id,
-            text=message.text
-        )
-
+    except Exception as e:
+        print(f"Error in reply_text command: {e}")
 
 @bot.on_message(filters.user(owner_id) & filters.media)
 async def replay_media(bot, message):
