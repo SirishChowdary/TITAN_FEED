@@ -3,6 +3,7 @@ import traceback
 import logging
 from pyrogram import Client, filters
 from configs import Config as C
+from config import *
 
 from pyrogram.types import *
 from database.broadcast import broadcast
@@ -84,8 +85,9 @@ async def start(bot, message):
         await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
         return
     
-    await message.reply_text(
-        text="**Hi {}!**\n".format(message.chat.first_name)+C.START,
+    await message.reply_photo(
+        photo=random.choice(PICS),
+        caption="**Hi {}!**\n".format(message.chat.first_name)+C.START,
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
         ])
