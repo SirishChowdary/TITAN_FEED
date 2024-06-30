@@ -94,11 +94,11 @@ async def start(bot, message):
         text=START_TXT.format(first=message.from_user.first_name),
         reply_markup=InlineKeyboardMarkup([
             [
-              InlineKeyboardButton("💫 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ", url=""),
-              InlineKeyboardButton("💞 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ", url="")
+              InlineKeyboardButton("💫 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ", url="https://t.me/Titan_Community_India"),
+              InlineKeyboardButton("💞 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ", url="https://t.me/Titan_CInemas")
             ],
             [ 
-              InlineKeyboardButton("🚀 ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ 🚀", url="")
+              InlineKeyboardButton("🚀 ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ 🚀", url="https://t.me/Titan_CInemas/16")
             ]
         ])
     )
