@@ -403,7 +403,7 @@ async def pm_media(_, message):
             await bot.copy_message(
                 chat_id=owner_id,
                 from_chat_id=message.chat.id,
-                message_id=message.message_id,
+                message_id=message.id,
                 caption=IF_CONTENT.format(reference_id, info.first_name),
             )
     
