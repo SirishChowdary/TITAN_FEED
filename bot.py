@@ -370,13 +370,13 @@ async def pm_media(_, message):
         if not await db.is_user_exist(chat_id):
             data = await bot.get_me()
             BOT_USERNAME = data.username
-            await db_add_user(chat_id)
+            await db.add_user(chat_id)
             await bot.send_message(
                 LOG_CHANNEL,
                 f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
             )
         
-        ban_status = await get_ban_status(chat_id)
+        ban_status = await db.get_ban_status(chat_id)
         
         is_banned = ban_status.get('is_banned', False)
         if is_banned:
