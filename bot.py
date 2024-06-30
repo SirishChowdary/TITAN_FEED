@@ -373,8 +373,7 @@ async def pm_media(bot, message):
             await bot.send_message(
                 LOG_CHANNEL,
                 f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-            )
-        
+            )    
         ban_status = await db.get_ban_status(chat_id)
         
         is_banned = ban_status.get('is_banned', False)
@@ -393,7 +392,10 @@ async def pm_media(bot, message):
         
         if message.media_group_id is not None:
             print(f"Handling media group with ID: {message.media_group_id}")
-            return
+            media = []
+            async for m in bot.iter_history(message.chat.id, message.media_group_id):
+                media.append(m.photo)  # Adjust to handle the appropriate media type
+            await bot.send_media_group(chat_id=owner_id, media=media)
         else:
             await bot.copy_message(
                 chat_id=owner_id,
@@ -401,10 +403,9 @@ async def pm_media(bot, message):
                 message_id=message.message_id,
                 caption=IF_CONTENT.format(reference_id, info.first_name),
             )
+    
     except Exception as e:
         print(f"Error in pm_media command: {e}")
-
-
 
 @bot.on_message(filters.user(owner_id) & filters.text)
 async def reply_text(bot, message):
