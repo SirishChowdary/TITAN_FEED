@@ -367,7 +367,7 @@ async def pm_media(_, message):
     try:
         chat_id = message.from_user.id
         
-        if not await db_is_user_exist(chat_id):
+        if not await db.is_user_exist(chat_id):
             data = await bot.get_me()
             BOT_USERNAME = data.username
             await db_add_user(chat_id)
@@ -403,7 +403,7 @@ async def pm_media(_, message):
             await bot.copy_message(
                 chat_id=owner_id,
                 from_chat_id=message.chat.id,
-                message_id=message.message_id,  # Corrected attribute access: message_id
+                message_id=message.message_id,
                 caption=IF_CONTENT.format(reference_id, info.first_name),
             )
     
@@ -453,7 +453,6 @@ async def reply_text(bot, message):
 @bot.on_message(filters.user(owner_id) & filters.media)
 async def replay_media(bot, message):
     chat_id = message.from_user.id
-    # Adding to DB
     if not await db.is_user_exist(chat_id):
         data = await bot.get_me()
         BOT_USERNAME = data.username
