@@ -43,7 +43,7 @@ DONATE_TXT = """
 
 <blockquote>ʏᴇᴀʜ ᴛʜᴀɴᴋs ғᴏʀ ᴄʟɪᴄᴋɪɴɢ ᴛʜɪs ɪɴ ᴛʜᴇ ғɪʀsᴛ ᴘʟᴀᴄᴇ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏɴᴀᴛᴇ ᴄʟɪᴄᴋ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴏʀ ᴊᴜsᴛ ᴘᴀʏ ᴡɪᴛʜ ᴛʜᴇ ᴜᴘɪ ʙᴇʟᴏᴡ ᴘᴀʏ ᴡɪᴛʜ ᴜᴘɪ ᴀɴᴅ ʜᴇʟᴘ ᴜs ɢʀᴏᴡ ᴇᴠᴇɴ ᴍᴏʀᴇ ⚡</blockquote>
 
-ᴜᴘɪ ɪᴅ - <code></code></b>"""
+ᴜᴘɪ ɪᴅ - <code>titanindia@ibl</code></b>"""
 
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
