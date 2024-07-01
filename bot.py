@@ -34,14 +34,16 @@ START_TXT = """
 <blockquote>ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ ʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ ᴀ ᴍᴏᴠɪᴇ/sᴇʀɪᴇs/ᴋᴅʀᴀᴍᴀ ᴛʜᴀᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ʙᴏᴛs ᴏʀ ᴄʜᴀɴɴᴇʟs ᴊᴜsᴛ ᴅʀᴏᴘ ᴛʜᴇ ɴᴀᴍᴇ ᴀɴᴅ ᴘᴏsᴛᴇʀs ᴛʜᴀᴛs ɪᴛ</blockquote></b>"""
 
 HELP_TXT = """
-ʜᴇʏ {first} ⚡ ᴋɪsᴇ ʜᴏ 
+<b>ʜᴇʏ {first} ⚡ ᴋɪsᴇ ʜᴏ 
 
-ɪᴛs ʀᴇᴀʟʟʏ ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ᴊᴜsᴛ sᴇɴᴅ ᴀɴʏ ɴᴀᴍᴇ ᴡɪᴛʜ ᴘᴏsᴛᴇʀ sᴏ ɪᴛ ᴡɪʟʟ ᴇᴀsʏ ғᴏʀ ᴛᴏ sᴇᴀʀᴄʜ ᴡᴇ ᴡɪʟʟ ʀᴇsᴘᴏɴᴅ ғᴏʀ sᴜʀᴇ sᴏ ᴅᴏɴᴛ sᴘᴀᴍ"""
+ɪᴛs ʀᴇᴀʟʟʏ ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ᴊᴜsᴛ sᴇɴᴅ ᴀɴʏ ɴᴀᴍᴇ ᴡɪᴛʜ ᴘᴏsᴛᴇʀ sᴏ ɪᴛ ᴡɪʟʟ ᴇᴀsʏ ғᴏʀ ᴛᴏ sᴇᴀʀᴄʜ ᴡᴇ ᴡɪʟʟ ʀᴇsᴘᴏɴᴅ ғᴏʀ sᴜʀᴇ sᴏ ᴅᴏɴᴛ sᴘᴀᴍ</b>"""
 
 DONATE_TXT = """
-ʏᴇᴀʜ ᴛʜᴀɴᴋs ғᴏʀ ᴄʟɪᴄᴋɪɴɢ ᴛʜɪs ɪɴ ᴛʜᴇ ғɪʀsᴛ ᴘʟᴀᴄᴇ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏɴᴀᴛᴇ ᴄʟɪᴄᴋ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴏʀ ᴊᴜsᴛ ᴘᴀʏ ᴡɪᴛʜ ᴛʜᴇ ᴜᴘɪ ʙᴇʟᴏᴡ 
+<b>ʜᴇʏ {first} 💞 ᴋɪsᴇ ʜᴏ 
 
-ᴜᴘɪ - <code></code>"""
+<blockquote>ʏᴇᴀʜ ᴛʜᴀɴᴋs ғᴏʀ ᴄʟɪᴄᴋɪɴɢ ᴛʜɪs ɪɴ ᴛʜᴇ ғɪʀsᴛ ᴘʟᴀᴄᴇ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏɴᴀᴛᴇ ᴄʟɪᴄᴋ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴏʀ ᴊᴜsᴛ ᴘᴀʏ ᴡɪᴛʜ ᴛʜᴇ ᴜᴘɪ ʙᴇʟᴏᴡ ᴘᴀʏ ᴡɪᴛʜ ᴜᴘɪ ᴀɴᴅ ʜᴇʟᴘ ᴜs ɢʀᴏᴡ ᴇᴠᴇɴ ᴍᴏʀᴇ ⚡</blockquote>
+
+ᴜᴘɪ ɪᴅ - <code></code></b>"""
 
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
@@ -71,7 +73,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
             ),
         )
         await cb.answer(
-            f"Successfully setted notifications to {await db.get_notif(user_id)}"
+            f"sᴜᴄᴄᴇssғᴜʟʟʏ sᴇᴛᴛᴇᴅ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴs ᴛᴏ {await db.get_notif(user_id)}"
         )
         
         
@@ -124,13 +126,13 @@ async def help(bot, message):
     ban_status = await db.get_ban_status(chat_id)    
     is_banned = ban_status.get('is_banned', False)
     if is_banned:
-        ban_duration = ban_status.get('ban_duration', 'unknown')
-        ban_reason = ban_status.get('ban_reason', 'No reason provided')
-        await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
+        ban_duration = ban_status.get('ban_duration', 'ᴜɴᴋɴᴏᴡɴ')
+        ban_reason = ban_status.get('ban_reason', 'ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠɪᴅᴇᴅ')
+        await message.reply_text(f"ʏᴏᴜ ᴀʀᴇ ʙᴀɴɴᴇᴅ 🚫 ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ғᴏʀ **{ban_duration}** ᴅᴀʏ(s) ғᴏʀ ᴛʜᴇ ʀᴇᴀsᴏɴ __{ban_reason}__ \n\n**ᴍᴇssᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ᴀᴅᴍɪɴ 🤠**")
         return
       
     await message.reply_text(
-        text=C.HELP,
+        text=HELP_TXT.format(first=message.from_user.first_name),
         reply_markup=InlineKeyboardMarkup([
             [ 
               InlineKeyboardButton("ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ", url="https://t.me/Titan_Community_India")
@@ -153,15 +155,17 @@ async def donate(bot, message):
     
     is_banned = ban_status.get('is_banned', False)
     if is_banned:
-        ban_duration = ban_status.get('ban_duration', 'unknown')
-        ban_reason = ban_status.get('ban_reason', 'No reason provided')
-        await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
+        ban_duration = ban_status.get('ban_duration', 'ᴜɴᴋɴᴏᴡɴ')
+        ban_reason = ban_status.get('ban_reason', 'ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠɪᴅᴇᴅ')
+        await message.reply_text(f"ʏᴏᴜ ᴀʀᴇ ʙᴀɴɴᴇᴅ 🚫 ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ғᴏʀ **{ban_duration}** ᴅᴀʏ(s) ғᴏʀ ᴛʜᴇ ʀᴇᴀsᴏɴ __{ban_reason}__ \n\n**ᴍᴇssᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ᴀᴅᴍɪɴ 🤠**")
         return
       
     await message.reply_text(
-        text=C.DONATE + "If You Liked This Bot You Can Also Donate Creator through BTC `3AKE4bNwb9TsgaofLQxHAGCR9w2ftwFs2R`",
+        text=DONATE_TXT.format(first=message.from_user.first_name),
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(text="DONATE", url=donate_link)]
+            [ 
+              InlineKeyboardButton("ᴄᴏɴᴛᴀᴄᴛ ᴏᴡɴᴇʀ", url="https://t.me/Titan_Community_India")
+            ]
         ])
     )
 
