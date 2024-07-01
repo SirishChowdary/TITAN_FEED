@@ -23,15 +23,25 @@ bot = Client('Feedback bot',
 
 donate_link=C.DONATE_LINK
 owner_id=C.OWNER_ID
-LOG_TEXT = "ID: <code>{}</code>\nFirst Name: <a href='tg://user?id={}'>{}{}</a>\nDC ID: <code>{}</code>"
-IF_TEXT = "<b>Message from:</b> {}\n<b>Name:</b> {}\n\n{}"
-IF_CONTENT = "<b>Message from:</b> {} \n<b>Name:</b> {}"
+LOG_TEXT = "ɪᴅ: <code>{}</code>\n ғɪʀsᴛ ɴᴀᴍᴇ: <a href='tg://user?id={}'>{}{}</a>\n ᴅᴄ ɪᴅ: <code>{}</code>"
+IF_TEXT = "<b>ᴍᴇssᴀɢᴇ ғʀᴏᴍ:</b> {}\n<b>ɴᴀᴍᴇ:</b> {}\n\n{}"
+IF_CONTENT = "<b>ᴍᴇssᴀɢᴇ ғʀᴏᴍ:</b> {} \n<b>ɴᴀᴍᴇ:</b> {}"
 
 
 START_TXT = """
 <b>ʜᴇʏ {first} 💞 ᴋɪsᴇ ʜᴏ 
 
-<blockquote>ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ ʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ ᴀ ᴍᴏᴠɪᴇ/sᴇʀɪᴇs/ᴋᴅʀᴀᴍᴀ ᴛʜᴀᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ʙᴏᴛs ᴏʀ ᴄʜᴀɴɴᴇʟs</blockquote></b>"""
+<blockquote>ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ ʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ ᴀ ᴍᴏᴠɪᴇ/sᴇʀɪᴇs/ᴋᴅʀᴀᴍᴀ ᴛʜᴀᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ʙᴏᴛs ᴏʀ ᴄʜᴀɴɴᴇʟs ᴊᴜsᴛ ᴅʀᴏᴘ ᴛʜᴇ ɴᴀᴍᴇ ᴀɴᴅ ᴘᴏsᴛᴇʀs ᴛʜᴀᴛs ɪᴛ</blockquote></b>"""
+
+HELP_TXT = """
+ʜᴇʏ {first} ⚡ ᴋɪsᴇ ʜᴏ 
+
+ɪᴛs ʀᴇᴀʟʟʏ ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ᴊᴜsᴛ sᴇɴᴅ ᴀɴʏ ɴᴀᴍᴇ ᴡɪᴛʜ ᴘᴏsᴛᴇʀ sᴏ ɪᴛ ᴡɪʟʟ ᴇᴀsʏ ғᴏʀ ᴛᴏ sᴇᴀʀᴄʜ ᴡᴇ ᴡɪʟʟ ʀᴇsᴘᴏɴᴅ ғᴏʀ sᴜʀᴇ sᴏ ᴅᴏɴᴛ sᴘᴀᴍ"""
+
+DONATE_TXT = """
+ʏᴇᴀʜ ᴛʜᴀɴᴋs ғᴏʀ ᴄʟɪᴄᴋɪɴɢ ᴛʜɪs ɪɴ ᴛʜᴇ ғɪʀsᴛ ᴘʟᴀᴄᴇ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏɴᴀᴛᴇ ᴄʟɪᴄᴋ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴏʀ ᴊᴜsᴛ ᴘᴀʏ ᴡɪᴛʜ ᴛʜᴇ ᴜᴘɪ ʙᴇʟᴏᴡ 
+
+ᴜᴘɪ - <code></code>"""
 
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
