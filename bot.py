@@ -29,11 +29,13 @@ IF_CONTENT = "<b>Message from:</b> {} \n<b>Name:</b> {}"
 
 
 START_TXT = """
-<b>ʜᴇʏ {first} 💞
+<b>ʜᴇʏ {first} 💞 ᴋɪsᴇ ʜᴏ 
 
-ᴡᴇ ʀᴇᴀʟʟʏ ʜᴏᴘᴇ ʏᴏᴜ ʜᴀᴠᴇ ᴀ ɢᴏᴏᴅ ᴅᴀʏ ɪғ ʏᴏᴜ ʜᴀᴠᴇ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ ? 
-ᴊᴜsᴛ ᴅʀᴏᴘ ᴛʜᴇᴍ ʜᴇʀᴇ ᴡᴇ ᴡɪʟʟ sᴜʀᴇʟʏ ᴛʀʏ ᴛᴏ ᴀɴsᴡᴇʀ ᴀs sᴏᴏɴ ᴀs ᴘᴏssɪʙʟᴇ 
-ᴛʜᴀɴᴋs ғᴏʀ sᴛᴀʀᴛɪɴɢ</b>"""
+<blockquote>🚀 ʀᴜʟᴇs
+1. ᴅᴏɴᴛ sᴘᴀᴍ 
+2. ᴊᴜsᴛ ᴅʀᴏᴘ ᴛʜᴇ ɴᴀᴍᴇ ᴀɴᴅ ᴘᴏsᴛᴇʀ ғᴏʀ ᴍᴏᴠɪᴇ/sᴇʀɪᴇs
+3. ᴊᴜsᴛ ᴡᴀɪᴛ ʙʟᴏᴄᴋɪɴɢ ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ɴᴏᴛ ᴀɴsᴡᴇʀ ᴛʜᴇ ǫᴜᴇsᴛɪᴏɴ
+4. sᴘᴀᴍᴍɪɴɢ ʟᴇᴀᴅs ᴛᴏ ʙᴀɴ ᴀɴᴅ sᴇɴᴅɪɴɢ ʟɪɴᴋs ᴀʟsᴏ ɢᴇᴛ ʏᴏᴜ ʙᴀɴɴᴇᴅ</blockquote></b>"""
 
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
@@ -54,11 +56,11 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 [
                     [
                         InlineKeyboardButton(
-                            f"NOTIFICATION  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
+                            f"ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
                             callback_data="notifon",
                         )
                     ],
-                    [InlineKeyboardButton("CLOSE", callback_data="closeMeh")],
+                    [InlineKeyboardButton("💫 ᴄʟᴏsᴇ", callback_data="closeMeh")],
                 ]
             ),
         )
@@ -80,27 +82,23 @@ async def start(bot, message):
         await db.add_user(chat_id)
         await bot.send_message(
             LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+            f"#ɴᴇᴡᴜsᴇʀ: \n\n ɴᴇᴡ ᴜsᴇʀ [{message.from_user.first_name}](tg://user?id={message.from_user.id}) sᴛᴀʀᴛᴇᴅ @{BOT_USERNAME} !!",
         )
         return
     
     ban_status = await db.get_ban_status(chat_id)   
     is_banned = ban_status.get('is_banned', False)
     if is_banned:
-        ban_duration = ban_status.get('ban_duration', 'unknown')
-        ban_reason = ban_status.get('ban_reason', 'No reason provided')
-        await message.reply_text(f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**")
+        ban_duration = ban_status.get('ban_duration', 'ᴜɴᴋɴᴏᴡɴ')
+        ban_reason = ban_status.get('ban_reason', 'ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠɪᴅᴇᴅ')
+        await message.reply_text(f"ʏᴏᴜ ᴀʀᴇ ʙᴀɴɴᴇᴅ 🚫 ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ғᴏʀ **{ban_duration}** ᴅᴀʏ(s) ғᴏʀ ᴛʜᴇ ʀᴇᴀsᴏɴ __{ban_reason}__ \n\n**ᴍᴇssᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ᴀᴅᴍɪɴ 🤠**")
         return
     
     await message.reply_text(
         text=START_TXT.format(first=message.from_user.first_name),
         reply_markup=InlineKeyboardMarkup([
-            [
-              InlineKeyboardButton("💫 sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ", url="https://t.me/Titan_Community_India"),
-              InlineKeyboardButton("💞 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ", url="https://t.me/Titan_CInemas")
-            ],
             [ 
-              InlineKeyboardButton("🚀 ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ 🚀", url="https://t.me/Titan_CInemas/16")
+              InlineKeyboardButton("🚀 ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ 🚀", url="https://t.me/Titan_Community_India")
             ]
         ])
     )
