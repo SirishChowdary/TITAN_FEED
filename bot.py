@@ -183,11 +183,11 @@ async def opensettings(bot, cmd):
         )
     try:
         await cmd.reply_text(
-            text=f"⚙ `Here You Can Set Your Settings:` ⚙\n\nSuccessfully setted notifications to **{await db.get_notif(user_id)}**",
+            text=f"⚙ `ʜᴇʀᴇ ʏᴏᴜ ᴄᴀɴ sᴇᴛ ʏᴏᴜʀ sᴇᴛᴛɪɴɢs:` ⚙\n\n sᴜᴄᴄᴇssғᴜʟʟʏ sᴇᴛᴛᴇᴅ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴs ᴛᴏ **{await db.get_notif(user_id)}**",
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton(text=f"NOTIFICATION  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",callback_data="notifon")],
-                    [InlineKeyboardButton(text="CLOSE", callback_data="closeMeh")],
+                    [InlineKeyboardButton(text=f"ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",callback_data="notifon")],
+                    [InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="closeMeh")],
                 ]
             )
         )
