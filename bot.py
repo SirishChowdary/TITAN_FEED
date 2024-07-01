@@ -16,6 +16,7 @@ DB_NAME = C.DB_NAME
 
 db = Database(DB_URL, DB_NAME)
 
+PORT = 8080
 bot = Client('Feedback bot',
              api_id=C.API_ID,
              api_hash=C.API_HASH,
