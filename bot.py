@@ -20,6 +20,29 @@ bot = Client('Feedback bot',
              api_id=C.API_ID,
              api_hash=C.API_HASH,
              bot_token=C.BOT_TOKEN)
+async def start(self):
+  app = web.AppRunner(await web_server())
+  await app.setup()
+  bind_address = "0.0.0.0"
+  await web.TCPSite(app, bind_address, PORT).start()
+
+from aiohttp import web
+from .route import routes
+
+
+async def web_server():
+    web_app = web.Application(client_max_size=30000000)
+    web_app.add_routes(routes)
+    return web_app
+
+from aiohttp import web
+
+routes = web.RouteTableDef()
+
+@routes.get("/", allow_head=True)
+async def root_route_handler(request):
+    return web.json_response("Join Telegram Channal @GreyMatter_Bots") 
+
 
 donate_link=C.DONATE_LINK
 owner_id=C.OWNER_ID
