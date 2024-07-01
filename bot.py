@@ -31,11 +31,7 @@ IF_CONTENT = "<b>Message from:</b> {} \n<b>Name:</b> {}"
 START_TXT = """
 <b>ʜᴇʏ {first} 💞 ᴋɪsᴇ ʜᴏ 
 
-<blockquote>🚀 ʀᴜʟᴇs
-1. ᴅᴏɴᴛ sᴘᴀᴍ 
-2. ᴊᴜsᴛ ᴅʀᴏᴘ ᴛʜᴇ ɴᴀᴍᴇ ᴀɴᴅ ᴘᴏsᴛᴇʀ ғᴏʀ ᴍᴏᴠɪᴇ/sᴇʀɪᴇs
-3. ᴊᴜsᴛ ᴡᴀɪᴛ ʙʟᴏᴄᴋɪɴɢ ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ɴᴏᴛ ᴀɴsᴡᴇʀ ᴛʜᴇ ǫᴜᴇsᴛɪᴏɴ
-4. sᴘᴀᴍᴍɪɴɢ ʟᴇᴀᴅs ᴛᴏ ʙᴀɴ ᴀɴᴅ sᴇɴᴅɪɴɢ ʟɪɴᴋs ᴀʟsᴏ ɢᴇᴛ ʏᴏᴜ ʙᴀɴɴᴇᴅ</blockquote></b>"""
+<blockquote>ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ ʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ ᴀ ᴍᴏᴠɪᴇ/sᴇʀɪᴇs/ᴋᴅʀᴀᴍᴀ ᴛʜᴀᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴏᴜʀ ʙᴏᴛs ᴏʀ ᴄʜᴀɴɴᴇʟs</blockquote></b>"""
 
 @bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
@@ -98,7 +94,7 @@ async def start(bot, message):
         text=START_TXT.format(first=message.from_user.first_name),
         reply_markup=InlineKeyboardMarkup([
             [ 
-              InlineKeyboardButton("🚀 ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ 🚀", url="https://t.me/Titan_Community_India")
+              InlineKeyboardButton("ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ", url="https://t.me/Titan_Community_India")
             ]
         ])
     )
@@ -126,10 +122,11 @@ async def help(bot, message):
     await message.reply_text(
         text=C.HELP,
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(text="🛠SUPPORT🛠", url=f"{C.SUPPORT_GROUP}"), InlineKeyboardButton(text="📮UPDATES📮", url=f"{C.UPDATE_CHANNEL}")]
+            [ 
+              InlineKeyboardButton("ᴛɪᴛᴀɴ ᴄᴏᴍᴍᴜɴɪᴛʏ", url="https://t.me/Titan_Community_India")
+            ]
         ])
     )
-
 @bot.on_message(filters.command('donate') & (filters.group | filters.private))
 async def donate(bot, message):
     chat_id = message.from_user.id
