@@ -36,7 +36,7 @@ START_TXT = """
 HELP_TXT = """
 <b>ʜᴇʏ {first} ⚡ ᴋɪsᴇ ʜᴏ 
 
-ɪᴛs ʀᴇᴀʟʟʏ ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ᴊᴜsᴛ sᴇɴᴅ ᴀɴʏ ɴᴀᴍᴇ ᴡɪᴛʜ ᴘᴏsᴛᴇʀ sᴏ ɪᴛ ᴡɪʟʟ ᴇᴀsʏ ғᴏʀ ᴛᴏ sᴇᴀʀᴄʜ ᴡᴇ ᴡɪʟʟ ʀᴇsᴘᴏɴᴅ ғᴏʀ sᴜʀᴇ sᴏ ᴅᴏɴᴛ sᴘᴀᴍ</b>"""
+<blockquote>ɪᴛs ʀᴇᴀʟʟʏ ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ ᴊᴜsᴛ sᴇɴᴅ ᴀɴʏ ɴᴀᴍᴇ ᴡɪᴛʜ ᴘᴏsᴛᴇʀ sᴏ ɪᴛ ᴡɪʟʟ ᴇᴀsʏ ғᴏʀ ᴛᴏ sᴇᴀʀᴄʜ ᴡᴇ ᴡɪʟʟ ʀᴇsᴘᴏɴᴅ ғᴏʀ sᴜʀᴇ sᴏ ᴅᴏɴᴛ sᴘᴀᴍ</blockquote></b>"""
 
 DONATE_TXT = """
 <b>ʜᴇʏ {first} 💞 ᴋɪsᴇ ʜᴏ 
@@ -212,7 +212,7 @@ async def sts(c, m):
         await m.delete()
         return
     await m.reply_text(
-        text=f"**Total Users in Database 📂:** `{await db.total_users_count()}`\n\n**Total Users with Notification Enabled 🔔 :** `{await db.total_notif_users_count()}`",
+        text=f"**ᴛᴏᴛᴀʟ ᴜsᴇʀs ɪɴ ᴅᴀᴛᴀʙᴀsᴇ 📂:** `{await db.total_users_count()}`\n\n**ᴛᴏᴛᴀʟ ᴜsᴇʀs ᴡɪᴛʜ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴇɴᴀʙʟᴇᴅ 🔔 :** `{await db.total_notif_users_count()}`",
         quote=True,
     )
 
